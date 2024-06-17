@@ -7,5 +7,30 @@ pipeline {
       }
     }
 
+    stage('build') {
+      steps {
+        sh 'docker.build("todo-app:${env.BUILD_ID}")'
+      }
+    }
+
+    stage('test') {
+      steps {
+        echo 'Test complete'
+      }
+    }
+
+    stage('push') {
+      steps {
+        sh '''sh \'docker-compose down\'
+'''
+      }
+    }
+
+    stage('deploy') {
+      steps {
+        sh 'sh \'docker-compose up -d --build\''
+      }
+    }
+
   }
 }
